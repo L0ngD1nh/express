@@ -1,0 +1,53 @@
+app.js file
+var express = require("express");
+var app = express();
+
+app.get("/", function(req, res){
+    console.log("Hi there, welcome to my assignment!");
+});
+
+app.get("/speak/:animal", function(req, res){
+    var sounds = {
+        pig: "oink",
+        dog: "woof Woof",
+        cow: "Moooo"
+    }
+    var animal = req.params.animal;
+    var sound = sounds[animal];
+    res.send("The " + animal + " says " + sound);
+});
+
+app.get("/repeat/:words/:multiply", function(req, res){
+     var words = req.params.words;
+     var multiply = Number(req.params.multiply);
+     var total = "";
+     for(var i=0; i<multiply; i++){
+         total += words + " ";
+     }
+     res.send(total);
+});
+
+// everything else that doesn't fit
+app.get("*", function(req, res){
+    res.send("sorry, page not found... What are you doing with your life?");
+});
+//Tell Express to listen for request (start server)
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("Server has started!!!"); 
+});
+
+package.json file
+{
+  "name": "solution1",
+  "version": "1.0.0",
+  "description": "Simple excercise for routing",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "long dinh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
